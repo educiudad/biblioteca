@@ -4,9 +4,23 @@ public class Livro {
     private int id;
     private String nome;
     private String autor;
+    private Boolean disponivel;
+    private String titulo;
 
     public int getId() {
         return id;
+    }
+
+    public boolean getDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 
     public void setId(int id) {
@@ -27,5 +41,9 @@ public class Livro {
 
     public void setAutor(String autor) {
         this.autor = autor;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 }

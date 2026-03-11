@@ -1,36 +1,47 @@
 package org.example;
 
+import org.example.dao.LivrosDao;
 import org.example.db.Conexao;
+import org.example.model.Livro;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
-        try {
+        Livro livro = new Livro();
 
-            Connection conn = Conexao.conectar();
+        livro.setTitulo("Estruturas de Dados");
+        livro.setAutor("Carlos");
+        livro.setDisponivel(true);
+        LivrosDao dao = new LivrosDao();
+        dao.inserir(livro);
 
-            String sql = "INSERT INTO livros (titulo, autor) VALUES (?, ?)";
+    /*
+        livro.setId(1);
+        livro.setTitulo("Java Avançado");
+        livro.setAutor("João");
+        livro.setDisponivel(true);
 
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        dao.atualizar(livro);
+        */
 
-            stmt.setString(1, "Dom Casmurro");
-            stmt.setString(2, "Machado de Assis");
+        List<Livro> livros = dao.listaLivros();
 
-            stmt.executeUpdate();
+        for (Livro livroFor : livros) {
 
-            System.out.println("Livro inserido!");
+            System.out.println(
+                            livroFor.getId() + " | " +
+                            livroFor.getTitulo() + " | " +
+                            livroFor.getAutor() + " | " +
+                            livroFor.getDisponivel()
+            );
 
-            sql = "SELECT * FROM usuarios"; // redefini o valor da variavel sql e mandei selecionar tudo de cursos
-            stmt = conn.prepareStatement(sql); // o java pegou o texto da variavel sql e prepara para executar no database
-            ResultSet rs = stmt.executeQuery(); // executa no database
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
 
