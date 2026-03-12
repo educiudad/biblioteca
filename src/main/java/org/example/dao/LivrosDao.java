@@ -12,6 +12,9 @@ import java.util.List;
 
 public class LivrosDao {
 
+    public LivrosDao(Connection conn) {
+    }
+
     public void inserir(Livro livro) throws SQLException {
 
         Connection conn = Conexao.conectar();

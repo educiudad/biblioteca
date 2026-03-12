@@ -14,10 +14,10 @@ import java.util.List;
 public class UsuariosDao {
 
 
+    public UsuariosDao(Connection conn) {
+    }
 
-
-
-        //explicacao linha de baixo: o metodo vai buscar usuarios no database e devolver uma lista de objetos Usuarios
+    //explicacao linha de baixo: o metodo vai buscar usuarios no database e devolver uma lista de objetos Usuarios
         public List<Usuario> listaUsuarios() throws SQLException {
             //throws SQLException -- se der merda no database o metodo pode abrir exceção
             Connection conn = Conexao.conectar(); //cria a conexao com o database
