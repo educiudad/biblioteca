@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Scanner;
+
 import org.example.dao.EmprestimosDao;
 import org.example.dao.LivrosDao;
 import org.example.dao.UsuariosDao;
@@ -14,40 +16,117 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
+
         Connection conn = Conexao.conectar();
 
-        Livro livro = new Livro();
-        Usuario usuario = new Usuario();
-        Emprestimos emprestimo = new Emprestimos();
 
 
         EmprestimosDao emprestimosDao = new EmprestimosDao(conn);
         UsuariosDao usuarioDao = new UsuariosDao(conn);
-        LivrosDao dao = new LivrosDao(conn);
-
-        //usuario.setNome("Eduardo");
-       // usuarioDao.inserir(usuario);
-
-        emprestimo.setUsuarioId(7);
-        emprestimo.setLivroId(16);
-
-        emprestimo.setDataEmprestimo(Date.valueOf("2026-03-12"));
+        LivrosDao livrosDao = new LivrosDao(conn);
 
 
+        Scanner scanner = new Scanner(System.in); // permite ler o que o usuário digita
+        int opcao = -1; // variável que guarda a opção escolhida
 
+        while (opcao != 0) { // o programa roda até o usuário escolher sair
 
-       // livro.setTitulo("Clean Code");
-       // livro.setAutor("Robert Martin");
-        //livro.setDisponivel(true);
-        //dao.inserir(livro);
+            System.out.println("\n=== SISTEMA BIBLIOTECA ===");
+            System.out.println("1 - Cadastrar usuário");
+            System.out.println("2 - Cadastrar livro");
+            System.out.println("3 - Registrar empréstimo");
+            System.out.println("4 - Listar empréstimos");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha uma opção: ");
 
-        emprestimosDao.registrarEmprestimo(emprestimo);
+            opcao = scanner.nextInt(); // lê o número digitado
 
-        System.out.println("Empréstimo registrado!");
+            switch (opcao) {
 
+                case 1:
+                    scanner.nextLine();
 
+                    System.out.println("Digite o nome do usuario que vai ser cadastrado:");
+                    String nome = scanner.nextLine();
+                    Usuario usuario = new Usuario();
 
+                    usuario.setNome(nome);
+                    usuarioDao.inserir(usuario);
+                    break;
 
+                case 2:
+                    scanner.nextLine();
+
+                    System.out.println("Digite o nome do livro que vai ser cadastrado:");
+                    String titulo = scanner.nextLine();
+                    System.out.println("Digite o autor desse livro:");
+                    String autor = scanner.nextLine();
+                    System.out.println("Esse livro esta disponivel?");
+                    Boolean disponivel = Boolean.parseBoolean(scanner.nextLine());
+
+                    Livro livro = new Livro();
+                    livro.setTitulo(titulo);
+                    livro.setAutor(autor);
+                    livro.setDisponivel(disponivel);
+                    livrosDao.inserir(livro);
+                    break;
+                case 3:
+                    scanner.nextLine();
+
+                    System.out.println("ID do usuário:");
+                    int usuarioId = scanner.nextInt();
+
+                    System.out.println("ID do livro:");
+                    int livroId = scanner.nextInt();
+
+                    Emprestimos emprestimo = new Emprestimos();
+
+                    emprestimo.setUsuarioId(usuarioId);
+                    emprestimo.setLivroId(livroId);
+                    emprestimo.setDataEmprestimo(new Date(System.currentTimeMillis()));
+
+                    emprestimosDao.registrarEmprestimo(emprestimo);
+
+                    break;
+
+                case 4:
+                    System.out.println("Listando empréstimos...");
+                    emprestimosDao.ListarEmprestimos();
+                    break;
+
+                case 0:
+                    System.out.println("Saindo do sistema...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
+
+        }
+
+        scanner.close();
+        conn.close();
     }
 
+
+    //usuario.setNome("Eduardo");
+    // usuarioDao.inserir(usuario);
+
+    //emprestimo.setUsuarioId(7);
+    // emprestimo.setLivroId(16);
+
+    // emprestimo.setDataEmprestimo(Date.valueOf("2026-03-12"));
+
+
+    // livro.setTitulo("Clean Code");
+    // livro.setAutor("Robert Martin");
+    //livro.setDisponivel(true);
+    //dao.inserir(livro);
+
+    // emprestimosDao.registrarEmprestimo(emprestimo);
+
+    // System.out.println("Empréstimo registrado!");
+
+
 }
+

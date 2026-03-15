@@ -1,54 +1,55 @@
-# biblioteca
-About the Project
+# 📚 Library Management System
 
-The Library Management System is a backend application developed in Java that simulates the core operations of a library.
-The system manages books, users, and loans, storing all data in a MySQL database using JDBC for database communication.
+## 📖 About the Project
 
-This project was created to practice backend development concepts such as:
+The **Library Management System** is a backend application developed in **Java** that simulates the core operations of a library.
 
-Object-Oriented Programming (OOP)
+The system manages **books**, **users**, and **loans**, storing all data in a **MySQL database** using **JDBC** for database communication.
 
-Database integration
+This project was created to practice fundamental **backend development concepts**, including:
 
-DAO (Data Access Object) Pattern
+* Object-Oriented Programming (OOP)
+* Database integration with JDBC
+* DAO (Data Access Object) design pattern
+* CRUD operations
+* Relational database modeling
+* Code organization in a layered architecture
 
-CRUD operations
+---
 
-Relational database modeling
+# 🚀 Features
 
-🚀 Features
+The system currently supports the following operations:
 
-📚 Register books
+* 📚 Register books
+* 👤 Register users
+* 🔄 Register book loans
+* 🔍 Retrieve records from the database
+* ✏ Update existing records
+* ❌ Delete records
 
-👤 Register users
+### Relationship Rules
 
-🔄 Register book loans
+The system follows a relational model where:
 
-🔍 Retrieve data from the database
+* A **user can borrow multiple books**
+* A **book can be borrowed multiple times over time**
 
-✏ Update records
+---
 
-❌ Delete records
+# 🛠 Technologies Used
 
-The project uses relational data modeling where:
+* **Java**
+* **JDBC**
+* **MySQL**
+* **Maven**
+* **Git & GitHub**
 
-A user can borrow multiple books
+---
 
-A book can be borrowed multiple times over time
+# 🗂 Project Structure
 
-🛠 Technologies Used
-
-Java
-
-JDBC
-
-MySQL
-
-Maven
-
-Git & GitHub
-
-🗂 Project Structure
+```
 src
 ├── model
 │    ├── Livro.java
@@ -64,107 +65,145 @@ src
 │    └── ConnectionFactory.java
 │
 └── Main.java
-Explanation
+```
 
-model
+### Explanation
 
-Contains the entity classes representing database tables.
+**model**
 
-dao
+Contains the entity classes that represent the database tables.
 
-Responsible for database communication using JDBC.
-Each DAO implements CRUD operations.
+**dao**
 
-connection
+Responsible for communication with the database using JDBC.
+Each DAO implements **CRUD operations**.
 
-Manages the database connection.
+**connection**
 
-Main
+Manages the database connection configuration.
 
-Used to test the system functionalities.
+**Main**
 
-🗄 Database Structure
+Entry point of the application, used to test system functionalities through a console menu.
 
-The system uses three main tables:
+---
 
-📚 books
-Column	Type
-id	INT
-title	VARCHAR
-author	VARCHAR
-publication_year	INT
-👤 users
-Column	Type
-id	INT
-name	VARCHAR
-email	VARCHAR
-🔄 loans
-Column	Type
-id	INT
-user_id	INT
-book_id	INT
-loan_date	DATE
-return_date	DATE
+# 🗄 Database Structure
 
-Relationships:
+The system uses **three main tables**.
 
-user_id → references users
+## 📚 books
 
-book_id → references books
+| Column           | Type    |
+| ---------------- | ------- |
+| id               | INT     |
+| title            | VARCHAR |
+| author           | VARCHAR |
+| publication_year | INT     |
 
-⚙ How to Run the Project
-1 Clone the repository
+---
+
+## 👤 users
+
+| Column | Type    |
+| ------ | ------- |
+| id     | INT     |
+| name   | VARCHAR |
+| email  | VARCHAR |
+
+---
+
+## 🔄 loans
+
+| Column      | Type |
+| ----------- | ---- |
+| id          | INT  |
+| user_id     | INT  |
+| book_id     | INT  |
+| loan_date   | DATE |
+| return_date | DATE |
+
+### Relationships
+
+* `user_id` → references **users**
+* `book_id` → references **books**
+
+---
+
+# ⚙ How to Run the Project
+
+### 1️⃣ Clone the repository
+
+```
 git clone https://github.com/your-username/library-system.git
-2 Create the database
+```
+
+### 2️⃣ Create the database
+
+```sql
 CREATE DATABASE library;
-3 Configure the connection
+```
 
-Edit the database credentials inside:
+### 3️⃣ Configure the database connection
 
+Edit the credentials inside:
+
+```
 ConnectionFactory.java
+```
 
 Example:
 
+```java
 String url = "jdbc:mysql://localhost:3306/library";
 String user = "root";
 String password = "your_password";
-4 Run the project
+```
 
-Execute the Main.java file to test the system operations.
+---
 
-📷 Project Demonstration
+### 4️⃣ Run the project
 
-You can include screenshots like:
+Run the `Main.java` file to test the system operations using the console interface.
 
+---
+
+# 📷 Project Demonstration
+
+You can include screenshots such as:
+
+```
 /images/database.png
 /images/loan-example.png
 /images/code-example.png
+```
 
 Example:
 
+```
 ![Database](images/database.png)
-🎯 Learning Goals
+```
+
+---
+
+# 🎯 Learning Goals
 
 This project was developed to improve knowledge in:
 
-Java backend development
+* Java backend development
+* JDBC database interaction
+* Relational database design
+* Code organization using the DAO pattern
+* Building console-based backend systems
 
-JDBC database interaction
+---
 
-Relational database design
+# 📌 Future Improvements
 
-Code organization using DAO pattern
+Possible future improvements include:
 
-📌 Future Improvements
-
-Possible improvements for the project:
-
-REST API with Spring Boot
-
-Frontend interface
-
-Authentication system
-
-Pagination for queries
-
-Dockerized database
+* 🌐 REST API with **Spring Boot**
+* 🖥 Frontend interface
+* 🔐 Authentication and authorization system
+* 📊 Pagination for database queries
+* 🐳 Dockerized database environment
