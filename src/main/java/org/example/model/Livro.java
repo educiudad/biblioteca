@@ -46,4 +46,7 @@ public class Livro {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
+    public void estaDisponivel(){
+    }
 }

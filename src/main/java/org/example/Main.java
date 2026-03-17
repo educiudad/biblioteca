@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 
+import org.example.control.Controller;
 import org.example.dao.EmprestimosDao;
 import org.example.dao.LivrosDao;
 import org.example.dao.UsuariosDao;
@@ -86,7 +87,13 @@ public class Main {
                     emprestimo.setDataEmprestimo(new Date(System.currentTimeMillis()));
 
                     emprestimosDao.registrarEmprestimo(emprestimo);
+                    Boolean sucesso = emprestimosDao.registrarEmprestimo(emprestimo);
 
+                    if (sucesso) {
+                        System.out.println("Empréstimo realizado com sucesso!");
+                    } else {
+                        System.out.println("Livro indisponível!");
+                    }
                     break;
 
                 case 4:
@@ -104,8 +111,17 @@ public class Main {
 
         }
 
-        scanner.close();
-        conn.close();
+
+
+
+
+
+       // Controller controller = new Controller();
+        //SIMULANDO O HTTP
+
+       // System.out.println("ANTES DO CONTROLLER");
+      //  controller.handleRequest("POST", "/livros");
+      //  System.out.println("DEPOIS DO CONTROLLER");
     }
 
 

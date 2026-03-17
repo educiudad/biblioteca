@@ -108,7 +108,7 @@ public class LivrosDao {
         ResultSet rs = stmt.executeQuery(); //executa
         List<Livro> livros = new ArrayList<>();
 
-        while (rs.next())  {
+        while (rs.next()) {
             // oq esse rs.next faz -- basicamente percorre a lista e fica retornando true ate que acabe as listas
             Livro livro = new Livro();
 
@@ -125,7 +125,37 @@ public class LivrosDao {
         return livros;
     }
 
+    public Boolean estaDisponivel(int id) throws SQLException {
+        Connection conn = Conexao.conectar();
 
+
+        String sql = "SELECT disponivel FROM livros WHERE id = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        // stmt.setBoolean(1, disponivel);
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+        // stmt.executeUpdate();
+        if (rs.next()) {
+            return rs.getBoolean("disponivel");
+        }
+
+        return false; // se não encontrou o livro
+    }
+
+    public void atualizarDisponibilidade(int livroId, boolean disponivel) throws SQLException {
+        Connection conn = Conexao.conectar();
+        String sql = "UPDATE livros SET disponivel = ? WHERE id = ?";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setBoolean(1, disponivel);
+        stmt.setInt(2, livroId);
+
+        stmt.executeUpdate();
+    }
 }
+
+
+
+
 
 

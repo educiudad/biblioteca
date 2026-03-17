@@ -11,8 +11,16 @@ public class EmprestimosDao {
     public EmprestimosDao(Connection conn) {
     }
 
-    public void registrarEmprestimo(Emprestimos emprestimo) throws SQLException {
+    public Boolean registrarEmprestimo(Emprestimos emprestimo) throws SQLException {
         Connection conn = Conexao.conectar();
+        LivrosDao livrosDao = new LivrosDao(conn);
+
+
+        if (!livrosDao.estaDisponivel(emprestimo.getLivroId())) {
+            System.out.println("Livro indisponível!");
+            return false;
+        }
+
         String sql ="INSERT INTO emprestimos (usuario_id, livro_id, data_emprestimo) VALUES (?,?,?)";
 
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -22,6 +30,9 @@ public class EmprestimosDao {
         stmt.setDate(3,emprestimo.getDataEmprestimo());
 
         stmt.executeUpdate();
+        livrosDao.atualizarDisponibilidade(emprestimo.getLivroId(), false);
+
+        return true;
     }
 
     public void devolverLIvro(int idEmprestimo, Date dataDevolucao) throws SQLException {
